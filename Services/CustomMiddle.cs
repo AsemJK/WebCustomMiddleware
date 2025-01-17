@@ -11,7 +11,7 @@
         public async Task Invoke(HttpContext context)
         {
             // Do something before the next middleware
-            if (!context.Request.Headers.ContainsKey("Authorizatione"))
+            if (!context.Request.Headers.ContainsKey("Authorization"))
             {
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Not Authorized");

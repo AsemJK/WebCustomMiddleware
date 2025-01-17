@@ -1,5 +1,6 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using WebCustomMiddleware.Models;
 
 namespace WebCustomMiddleware.Controllers
@@ -12,7 +13,7 @@ namespace WebCustomMiddleware.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize(AuthenticationSchemes = "CustomSchema")]
         public IActionResult Index()
         {
             return View();

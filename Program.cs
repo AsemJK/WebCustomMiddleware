@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authentication;
 using WebCustomMiddleware.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddAuthentication("CustomSchema")
+    .AddScheme<AuthenticationSchemeOptions, CustomAuthHandler>("CustomSchema", null);
 
 var app = builder.Build();
 
@@ -15,10 +17,11 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseMiddleware<CustomMiddle>();
+//app.UseMiddleware<CustomMiddle>();
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
